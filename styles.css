@@ -1,0 +1,64 @@
+.menu {
+    background-color: bisque;
+    border-radius: 20px;
+    padding: 20px;
+    margin-top: 10%;
+}
+
+.menu-items {
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-item {
+    background-color: white;
+    padding: 10px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.input-fields {
+    margin-top: 20px;
+}
+
+.input-field {
+    display: flex;
+    align-content: center;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.col-md-12 {
+    margin-top: 10px;
+}
+
+.form-sublabel {
+    width: 50px;
+    padding-right: 5px;
+}
+
+.btn {
+    margin-top: 30px;
+}
+
+.result {
+    display: none;
+    margin-top: 20px;
+}
+
+.permutation-groups {
+    display: none;
+}
+
+#group-div {
+    display: none;
+}
+
+.permutation-field-group {
+    margin-top: 20px;
+}
+
+#right-picks-div {
+    display: none;
+}
