@@ -11,6 +11,7 @@ const groupDiv = document.getElementById('group-div')
 const groupField = document.getElementById('group-amount')
 
 const permutationGroupsDiv = document.querySelector('.permutation-groups')
+const permutationGroupInput = document.getElementById('group-amount')
 
 const button = document.querySelector('.btn')
 
@@ -21,9 +22,11 @@ repeatField.addEventListener('change', function() {
     if (selectElement.value === 'Перестановки' && repeatField.value === 'Да') {
         chooseDiv.style.display = 'none'
         groupDiv.style.display = 'block'
+        permutationGroupsDiv.style.display = 'flex'
     } else if (selectElement.value === 'Перестановки' && repeatField.value === 'Нет') {
         chooseDiv.style.display = 'none'
         groupDiv.style.display = 'none'
+        permutationGroupsDiv.style.display = 'none'
     } else {
         chooseDiv.style.display = 'block'
         groupDiv.style.display = 'none'
@@ -35,9 +38,12 @@ selectElement.addEventListener('change', function() {
     if (selectElement.value === 'Перестановки' && repeatField.value === 'Да') {
         chooseDiv.style.display = 'none'
         groupDiv.style.display = 'block'
+        permutationGroupsDiv.style.display = 'flex'
+
     } else if (selectElement.value === 'Перестановки' && repeatField.value === 'Нет') {
         chooseDiv.style.display = 'none'
         groupDiv.style.display = 'none'
+        permutationGroupsDiv.style.display = 'none'
     } else {
         chooseDiv.style.display = 'block'
         groupDiv.style.display = 'none'
@@ -74,21 +80,20 @@ function Calculate() {
     n = Number.parseFloat(totalField.value)
     repeat = repeatField.value 
     if (n % 1 !== 0 || n <= 0) return 'все числа должны быть целыми и больше нуля'
-    if (k > n) return 'k не может быть больше n'  
 
     switch (selectElement.value) {
         case 'Перестановки': {
             let k1 = Number.parseFloat(groupField.value)
-            if (k1 % 1 !== 0 || k1 <= 0)
-                return 'все числа должны быть целыми и больше нуля'
+            if (k1 > n) return 'k не может быть больше n'  
+            if (k1 % 1 !== 0 || k1 <= 0) return 'все числа должны быть целыми и больше нуля'
             if (repeat === 'Нет') return fact(n - k)
             else {
                 let valuesInputs = document.querySelectorAll('.permutation-field')
                 let sum = 0
                 let result = fact(n)
                 for (let i = 0; i < valuesInputs.length; i++) {
-                    if (valuesInputs[i].value % 1 !== 0)
-                        return 'все числа должны быть целыми и больше нуля'
+                    let x = Number.parseFloat(valuesInputs[i].value)
+                    if (x % 1 !== 0 || x <= 0) return 'все числа должны быть целыми и больше нуля'
                     sum += Number.parseInt(valuesInputs[i].value)
                     result /= fact(Number.parseInt(valuesInputs[i].value))
                 }
@@ -97,16 +102,20 @@ function Calculate() {
             }
         }
         case 'Размещения': {
-            if (k % 1 !== 0 || k <= 0)
-                return 'все числа должны быть целыми и больше нуля'
-            if (repeat === 'Нет') return fact(n) / fact(n - k)
+            if (k % 1 !== 0 || k <= 0) return 'все числа должны быть целыми и больше нуля'
+            if (repeat === 'Нет') { 
+                if (k > n) return 'k не может быть больше n'
+                return fact(n) / fact(n - k)
+            }
             else return Math.pow(n, k)
         }
         
         case 'Сочетания': {
-            if (k % 1 !== 0 || k <= 0)
-                return 'все числа должны быть целыми и больше нуля'
-            if (repeat === 'Нет') return fact(n) / (fact(k) * fact(n - k))
+            if (k % 1 !== 0 || k <= 0) return 'все числа должны быть целыми и больше нуля'
+            if (repeat === 'Нет') {
+                if (k > n) return 'k не может быть больше n'
+                return fact(n) / (fact(k) * fact(n - k))
+            }
             else return fact(n + k - 1) / (fact(k) * fact(n - 1))
         }
     }
